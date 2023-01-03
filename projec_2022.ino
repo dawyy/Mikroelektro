@@ -8,7 +8,7 @@ lehet bluetooth kommunikációs csatornán keresztül kezelni a kimeneteket. A r
 a működés közbeni események megjelennek a soros porton is.
 
 A projekthez az Arduino Mega2560 típusát választottam, mivel ebben több a memória, így nem kell 
-tartani a memória elfogyásából adódó problémáktól. A fejlesztőrendszer Arduino 1.8.19. A felhasznált
+tartani a memória elfogyásából adódó problémáktól. A fejlesztőrendszer Arduino 2.0.2. A felhasznált
 szoftverkomponensek az internetről szabadon letölthetők. A fejlesztés során felhasználtam az al-
 katrészek és szoftverek leírásait és az interneten található oktatóanyagokat és leírásokat.
 
@@ -82,7 +82,7 @@ int paratartalom =0;  // páratartalom változó
 
 float teljesitmeny=0; // teljesítmény változó
 
-char BT_in_char=" ";  //bluetooth bejövő karakter
+char BT_in_char;  //bluetooth bejövő karakter
 
 bool D_in_1, D_in_2, D_in_3, D_in_4 ;  // digitális bemenetek változói boolean
 
@@ -196,7 +196,7 @@ void teljesitmeny_meres()  //Teljesítménymérés
 {
   I = sensor.getCurrentDC();  // egyenfeszültség (DC) áram beolvasása a Hall szenzorból
 //  I = sensor.getCurrentAC();  // váltófeszültség (AC) áram beolvasása a Hall szenzorból
-  if (I < 0.08) // figyelmen kívül hagyja, ha az áram 0.08A-nál kevesebb (teszteléssel megállapított érték)
+  if (I < 0.004) // figyelmen kívül hagyja, ha az áram 0.004A-nál kevesebb (teszteléssel megállapított érték)
     {
       I = 0;
     }
@@ -219,12 +219,12 @@ void soros_kiiras()  // rendszerállapot kiírása a soros vonalra
   Serial.println(paratartalom);  // Páratartalom kiírása a soros vonalra
   Serial.print("Homerseklet (C): ");
   Serial.println(homerseklet);  // Hőmérséklet kiírása a soros vonalra
-  Serial.print("Teljesítmény : ");
+  Serial.print("Teljesítmeny : ");
   Serial.print((teljesitmeny));
   Serial.println(" W");  // teljesítmény kiírása a soros vonalra
-  Serial.print("Relé1  : ");
+  Serial.print("Rele1  : ");
   Serial.println(R1_status);
-  Serial.print("Relé2  : "); 
+  Serial.print("Rele2  : "); 
   Serial.println(R2_status); 
   Serial.print("Digitális bemenetek : ");
   Serial.print(D_in_1);
