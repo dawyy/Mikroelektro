@@ -50,7 +50,7 @@ dht11 DHT11;  //Szenzor objektum neve DHT11
 
 LiquidCrystal_I2C lcd(0x27,20,4);  // I2C LCD beállítás : címe 0x27, 20 oszlop és 4 sor
 
-ACS712 sensor(ACS712_05B, A0); // árammérő 5A-es típus az A0-ás analóg bemeneten
+ACS712 sensor(ACS712_05B, A1); // árammérő 5A-es típus az A1-ás analóg bemeneten
 
 bool perc_valtas = false;  // percváltás detektálása az SD kártya íráshoz
 
@@ -196,7 +196,7 @@ void teljesitmeny_meres()  //Teljesítménymérés
 {
   I = sensor.getCurrentDC();  // egyenfeszültség (DC) áram beolvasása a Hall szenzorból
 //  I = sensor.getCurrentAC();  // váltófeszültség (AC) áram beolvasása a Hall szenzorból
-  if (I < 0.004) // figyelmen kívül hagyja, ha az áram 0.004A-nál kevesebb (teszteléssel megállapított érték)
+  if (I < 0.008) // figyelmen kívül hagyja, ha az áram 0.008A-nál kevesebb (teszteléssel megállapított érték)
     {
       I = 0;
     }
@@ -292,19 +292,19 @@ void lcd_kiiras()  // kiírás az LCD kijelzőre
   switch (lcd_valt)  // a második sor tartalma az lcd_valt értékétől függ, analóg mérések
   {
     case 1:  // hőmérséklet
-        lcd.setCursor(0,1);  // LDC kurzor 0. sor 1. oszlop
+        lcd.setCursor(0,1);  // LDC kurzor 2. sor 1. oszlop
         lcd.print ("H\004m\001rs:\001klet:");
         lcd.print(homerseklet);
         lcd.print(" C  "); 
         break;
     case 2:  // páratartalom
-        lcd.setCursor(0,1);  // LDC kurzor 0. sor 1. oszlop
+        lcd.setCursor(0,1);  // LDC kurzor 2. sor 1. oszlop
         lcd.print ("P\010ratartalom:");
         lcd.print(paratartalom);
         lcd.print(" %   ");
         break;
     case 3:  // teljesítmény
-        lcd.setCursor(0,1);  // LDC kurzor 0. sor 1. oszlop
+        lcd.setCursor(0,1);  // LDC kurzor 2. sor 1. oszlop
         lcd.print("Teljes\002tm\001ny:");
         lcd.print(teljesitmeny);
         lcd.print("W");
